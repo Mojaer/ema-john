@@ -18,9 +18,9 @@ const Cart = (props) => {
         shippingCost = 10;
     }
 
-    let taxVat = total/10;
+    let taxVat = total / 10;
 
-    const ConvertNumber=(num)=>{
+    const ConvertNumber = (num) => {
         let finalNum = Number(num.toFixed(2))
         return finalNum;
     }
@@ -30,9 +30,9 @@ const Cart = (props) => {
             <h4>Order summary</h4>
             <p>item Ordered:{cart.length}</p>
             <p>Product price :{ConvertNumber(total)} $ </p>
-            <p>shipping cost:{shippingCost}</p>
-            <p>Tax + Vat :{ConvertNumber(taxVat)}</p>
-            <p>Total price :{ConvertNumber(total+taxVat+shippingCost)}</p>
+            <p> <small>shipping cost:{shippingCost}</small> </p>
+            <p> <small>Tax + Vat :{ConvertNumber(taxVat)}</small> </p>
+            <p>Total price :{ConvertNumber(total + taxVat + shippingCost)}</p>
 
 
         </div>
