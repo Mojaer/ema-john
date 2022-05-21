@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Cart = (props) => {
 
@@ -33,6 +34,10 @@ const Cart = (props) => {
             <p> <small>shipping cost:{shippingCost}</small> </p>
             <p> <small>Tax + Vat :{ConvertNumber(taxVat)}</small> </p>
             <p>Total price :{ConvertNumber(total + taxVat + shippingCost)}</p>
+            <br />
+            <NavLink to='/review'> <button className='main-btn' > Review Order</button></NavLink>
+           
+
 
 
         </div>
