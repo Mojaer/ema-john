@@ -1,11 +1,21 @@
 import fakeData from '../../fakeData'
 import React, { useEffect, useState } from 'react';
-import { getDatabaseCart } from '../../utilities/fakedatabaseManager';
+import { getDatabaseCart, removeFromDatabaseCart } from '../../utilities/fakedatabaseManager';
 import ReviewItem from './ReviewItem/ReviewItem';
+import Cart from '../Cart/Cart';
 
 const Review = () => {
-    const [cart, setCart] = useState([]);
-   
+    const [reviewCart, setCart] = useState([]);
+
+    const removeFromCart = (key) => {
+        const newCart = reviewCart.filter(product => product.key !== key);
+        setCart(newCart);
+
+        removeFromDatabaseCart(key);
+    }
+
+    //console.log(reviewCart)
+
     useEffect(() => {
         const addedProduct = getDatabaseCart();
         const productkey = Object.keys(addedProduct);
@@ -18,13 +28,25 @@ const Review = () => {
 
         setCart(reviewedCart);
 
-    },[])
+    }, [])
+
+    const cart = [];
+    cart.product=reviewCart;
+
+
     return (
-        <div>
-            <h1 style={{textAlign: 'center'}}> cart Item:{cart.length}</h1>
-            {
-                cart.map(cartItem =><ReviewItem product={cartItem} key={cartItem.key}></ReviewItem>)
-            }
+        <div className='shop-container'>
+            <div className='product-container'>
+                <h1 style={{ textAlign: 'center' }}> Cart Item:{reviewCart.length}</h1>
+                {
+                    reviewCart.map(cartItem => <ReviewItem product={cartItem} key={cartItem.key} removefromcart={removeFromCart}></ReviewItem>)
+                }
+            </div>
+            <div className='Cart-container'>
+                <Cart cart={cart}></Cart>
+
+            </div>
+
         </div>
     );
 };

@@ -1,12 +1,23 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import './Cart.css';
 
 const Cart = (props) => {
 
     const cart = props.cart
+    const price= cart.product.map((pd)=>pd.price)
+    const quantity= cart.product.map(((pd)=>pd.quantity))
+    // quantity.forEach((value)=>console.log(typeof(value)))
 
-    let total = cart.reduce((total, prd) =>
-        total + prd.product.price, 0)
+
+    let total=0;
+    for (let i = 0; i <cart.product.length; i++) {
+         total += price[i]*quantity[i];
+        
+    }
+
+    // let total = price.reduce((total, prd) =>
+    //     total + prd * quantity.forEach((value)=>{return value}),0) ;
+
     let shippingCost = 0
 
     if (total > 1000) {
@@ -29,13 +40,13 @@ const Cart = (props) => {
     return (
         <div>
             <h4>Order summary</h4>
-            <p>item Ordered:{cart.length}</p>
+            <p>item Ordered:{cart.product.length}</p>
             <p>Product price :{ConvertNumber(total)} $ </p>
             <p> <small>shipping cost:{shippingCost}</small> </p>
             <p> <small>Tax + Vat :{ConvertNumber(taxVat)}</small> </p>
-            <p>Total price :{ConvertNumber(total + taxVat + shippingCost)}</p>
+            <p className='totalPrice'>Total price :{ConvertNumber(total + taxVat + shippingCost)}</p>
             <br />
-            <NavLink to='/review'> <button className='main-btn' > Review Order</button></NavLink>
+           
            
 
 

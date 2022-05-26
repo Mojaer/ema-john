@@ -1,25 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import fakeData from '../../fakeData';
 import Product from '../Product/Product';
 import './Shop.css';
-import Cart from '../Cart/Cart';
+import ShopCart from '../Shop/ShopCart/ShopCart'
 import { addToDatabaseCart } from '../../utilities/fakedatabaseManager';
+import { getDatabaseCart } from '../../utilities/fakedatabaseManager';
 
 
 const Shop = () => {
 
     const product10 = fakeData.slice(0, 10);
-    const [cart,setCart] = useState([]);
+    const [cart, setCart] = useState([]);
     //console.log(cart)
-    const handleAddProduct = (pd) => {      
-        const newCart = [...cart,pd]
-        const product=pd.product
+    const handleAddProduct = (pd) => {
+        const newCart = [...cart, pd]
+        const product = pd
         setCart(newCart);
-        const sameProduct = newCart.filter(pd=> pd.product.key===product.key)
+        const sameProduct = newCart.filter(pd => pd.key === product.key)
         const count = sameProduct.length
-        console.log(count)
-        addToDatabaseCart(product.key,count);
+        // console.log(count)
+        addToDatabaseCart(product.key, count);
     }
+
+
+
+
+    //console.log(reviewCart)
+
+    useEffect(() => {
+        const addedProduct = getDatabaseCart();
+        const productkey = Object.keys(addedProduct);
+        const reviewedCart = productkey.map(key => {
+            const product = fakeData.find(product => product.key === key);
+            product.quantity = addedProduct[key];
+            return product;
+
+        });
+
+        setCart(reviewedCart);
+
+    }, [])
+
+
+
 
     return (
         <div className='shop-container'>
@@ -32,7 +55,7 @@ const Shop = () => {
                 }
             </div>
             <div className='cart-container'>
-                <Cart cart={cart}></Cart>
+               <ShopCart cart={cart}></ShopCart>
 
             </div>
 
