@@ -1,18 +1,20 @@
 import React from 'react';
 import './Cart.css';
+import { NavLink } from 'react-router-dom';
 
 const Cart = (props) => {
 
-    const cart = props.cart
-    const price= cart.product.map((pd)=>pd.price)
-    const quantity= cart.product.map(((pd)=>pd.quantity))
+    const cart = props.cart;
+    // console.log(props)
+    const price = cart.product.map((pd) => pd.price)
+    const quantity = cart.product.map(((pd) => pd.quantity))
     // quantity.forEach((value)=>console.log(typeof(value)))
 
 
-    let total=0;
-    for (let i = 0; i <cart.product.length; i++) {
-         total += price[i]*quantity[i];
-        
+    let total = 0;
+    for (let i = 0; i < cart.product.length; i++) {
+        total += price[i] * quantity[i];
+
     }
 
     // let total = price.reduce((total, prd) =>
@@ -46,9 +48,9 @@ const Cart = (props) => {
             <p> <small>Tax + Vat :{ConvertNumber(taxVat)}</small> </p>
             <p className='totalPrice'>Total price :{ConvertNumber(total + taxVat + shippingCost)}</p>
             <br />
-           
-           
 
+
+            <NavLink to='/review'> <button onClick={props.orderplacehandler} className='main-btn' > Place Order</button></NavLink>
 
 
         </div>

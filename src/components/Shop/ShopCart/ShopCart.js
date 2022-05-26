@@ -8,34 +8,34 @@ const Cart = (props) => {
     // console.log(cart)
 
     const price = cart.map((pd) => {
-        return pd.price;
+        return pd.price * (pd.quantity || 1);
     })
 
-    let total=0
-price.forEach((pd) => total+=pd)
-   
+    let total = 0
+    price.forEach((pd) => total += pd)
 
+    
     //    console.log(total);
 
 
-        let shippingCost = 0
+    let shippingCost = 0
 
-        if (total > 1000) {
-            shippingCost = 0;
-        }
-        else if (total > 500) {
-            shippingCost = 5;
-        }
-        else if (total > 0) {
-            shippingCost = 10;
-        }
+    if (total > 1000) {
+        shippingCost = 0;
+    }
+    else if (total > 500) {
+        shippingCost = 5;
+    }
+    else if (total > 0) {
+        shippingCost = 10;
+    }
 
-        let taxVat = total / 10;
+    let taxVat = total / 10;
 
-        const ConvertNumber = (num) => {
-            let finalNum = Number(num.toFixed(2))
-            return finalNum;
-        }
+    const ConvertNumber = (num) => {
+        let finalNum = Number(num.toFixed(2))
+        return finalNum;
+    }
 
     return (
         <div>
@@ -47,7 +47,7 @@ price.forEach((pd) => total+=pd)
             <p className='totalPrice'>Total price :{ConvertNumber(total + taxVat + shippingCost)}</p>
             <br />
             <NavLink to='/review'> <button className='main-btn' > Review Order</button></NavLink>
-            
+
 
 
 
